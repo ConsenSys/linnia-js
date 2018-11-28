@@ -1,4 +1,4 @@
-<img src="./stow-logo.jpg" width="300" height="300" />
+<img src="./stow-logo.png" width="300" height="300" />
 
 ## [![NPM Package](https://img.shields.io/npm/v/@stowprotocol/stow-js.svg?style=flat-square)](https://www.npmjs.com/package/@stowprotocol/stow-js) ![Build Status](https://circleci.com/gh/ConsenSys/stow-js.png?circle-token=:circle-token&style=shield)
 
@@ -146,7 +146,7 @@ Gets the permission information of a record
 ### Parameters
 
 1. `String` - The data hash, hex-encoded, 0x prefixed
-1. `String` - The address of the data viewer
+2. `String` - The address of the data viewer
 
 ### Returns
 
@@ -154,6 +154,33 @@ Gets the permission information of a record
 
 - `canAccess`: `Boolean` - True if the specified viewer is allowed to access the record
 - `dataUri`: `String` - The data URI of the shared record
+
+---
+
+## stow.grantPermission
+
+```javascript
+stow.grantPermission(dataHash, viewerAddress, viewerEncyptionPublicKey, ownerEncryptionPrivateKey, ethParams)
+```
+
+Grants the permission of a record to the viewer
+
+### Parameters
+
+1. `String` - The data hash, hex-encoded, 0x prefixed
+2. `String` - The address of the data viewer
+3. `String` - The public encryption key of the viewer to encrypt the data being stored
+4. `String` - the private encryption key of the owner to decrypt the data being permissioned
+5. `Object` - The ethParams, ethereum account params. (The object needs to contain the key 'from')
+
+### Returns
+
+`Promise<Object>` - A promise when resolved returns an oject with data of the transaction.
+
+- `canAccess`: `Boolean` - True if the function has completed succesfully and viewer can now access revord
+- `viewerEthereumAddress`: `String` - Viewer address
+- `IPFSDataUri`: `String` - The new data URI of the shared record
+- `dataHash`: `String` - The dataHash of the record
 
 ---
 
@@ -178,7 +205,7 @@ to be set in the constructor as follows:
 1. `String` - The data hash. Hash of the plain text data + metadata
 2. `Object` - The metadata of the record. [Click here to read more about the metadata](https://github.com/ConsenSys/stow-resources/blob/master/METADATA.md)
 3. `String` - The dataUri, link to the data (eg. the IPFS hash)
-4. `Object` - The ethParams, ethereum account params. (The object need to contain the key 'from')
+4. `Object` - The ethParams, ethereum account params. (The object needs to contain the key 'from')
 
 ### Returns
 

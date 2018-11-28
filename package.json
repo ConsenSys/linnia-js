@@ -1,6 +1,6 @@
 {
   "name": "@stowprotocol/stow-js",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Stow JavaScript API",
   "main": "lib/index.js",
   "files": [
@@ -31,6 +31,7 @@
     "bignumber.js": "^7.2.1",
     "eth-sig-util": "^2.1.0",
     "ethereumjs-util": "^5.2.0",
+    "ipfs-mini": "^1.1.2",
     "truffle-contract": "3.0.5",
     "tweetnacl": "^1.0.0",
     "tweetnacl-util": "^0.15.0",

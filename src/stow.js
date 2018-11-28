@@ -1,4 +1,5 @@
 import TruffleContract from 'truffle-contract';
+import IPFS from 'ipfs-mini';
 
 import StowAddresses from '@stowprotocol/stow-addresses';
 import StowContractUpgradeHub from '@stowprotocol/stow-smart-contracts/build/contracts/StowHub.json';
@@ -170,6 +171,25 @@ class Stow {
     const { permissions } = await this.getContractInstances();
     return _permissionsFunctions.getPermission(permissions, dataHash, viewerAddress);
   }
+
+  /**
+   * grant permission to a record
+   * @param {String} dataHash hex-encoded data hash, 0x prefixed
+   * @param {String} viewerAddress hex-encoded ethereum address
+   * @param {String} viewerEncyptionPublicKey public key to encrypt file
+   * @param {String} ownerEncryptionPrivateKey private key to decrypt file
+   * @returns {Promise<{canAccess: Boolean, dataUri: String}>}
+   */
+  async grantPermission(dataHash, viewerAddress, viewerEncyptionPublicKey, ownerEncryptionPrivateKey, ethParams) {
+    const { records, permissions } = await this.getContractInstances();
+    const ipfs = new IPFS({
+      host: 'ipfs.infura.io',
+      port: 5001,
+      protocol: 'https',
+    });
+    return _permissionsFunctions.grantPermission(records, permissions, ipfs, dataHash, viewerAddress, viewerEncyptionPublicKey, ownerEncryptionPrivateKey, ethParams);
+  }
+
 
   /**
    * Internal DO NOT USE
